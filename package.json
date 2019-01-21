@@ -1,0 +1,43 @@
+{
+  "name": "task-function",
+  "version": "1.0.0",
+  "description": "Schedule reusable tasks in functions.",
+  "keywords": [
+    "minecraft",
+    "datapack",
+    "function",
+    "scheduling"
+  ],
+  "homepage": "https://github.com/sjx233/task-function#readme",
+  "bugs": "https://github.com/sjx233/task-function/issues",
+  "license": "MIT",
+  "author": "sjx233",
+  "main": "lib/index.js",
+  "typings": "lib/index",
+  "directories": {
+    "lib": "lib",
+    "test": "lib/test"
+  },
+  "repository": "github:sjx233/task-function",
+  "scripts": {
+    "lint": "tslint --project .",
+    "lint-fix": "tslint --project . --fix",
+    "build": "rm -rf lib && tsc",
+    "test": "node lib/test/test.js",
+    "preversion": "npm run build && npm test",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "minecraft-packs": "file:../minecraft-packs",
+    "resource-location": "^2.2.1",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=7.6.0"
+  }
+}
