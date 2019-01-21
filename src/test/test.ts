@@ -16,7 +16,7 @@ const task2 = taskGroup.newTask()
 taskGroup.newTask()
   .then("tellraw @a \"Task 3 Test 1\"")
   .then("tellraw @a \"Task 3 Test 2\"")
-  .then(task2, 6)
+  .then(task2, 0)
   .then(task2, 8)
   .then("tellraw @a \"Task 3 Test 3\"");
 taskGroup.addTo(pack);
