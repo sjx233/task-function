@@ -8,6 +8,14 @@ export class TaskGroup {
     if (!/^[a-z0-9/_.-]*$/.test(name)) throw new SyntaxError("Invalid name: non [a-z0-9/_.-] character");
   }
 
+  public getTasks() {
+    return Array.from(this.tasks);
+  }
+
+  public taskCount() {
+    return this.tasks.length;
+  }
+
   public newTask() {
     const tasks = this.tasks;
     const task = new Task(this, tasks.length);
@@ -15,14 +23,13 @@ export class TaskGroup {
     return task;
   }
 
-  public addTo(pack: Pack) {
+  public async addTo(pack: Pack, addCallback?: (task: Task) => void) {
     if (pack.type !== PackType.DATA_PACK) throw new TypeError("Adding task group to pack of wrong type");
-    this.addToUnchecked(pack);
+    await this.addToUnchecked(pack, addCallback);
   }
 
-  public addToUnchecked(pack: Pack) {
-    for (const task of this.tasks)
-      task.addToUnchecked(pack);
+  public async addToUnchecked(pack: Pack, addCallback?: (task: Task) => void) {
+    await Promise.all(this.tasks.map(addCallback ? task => task.addToUnchecked(pack).then(() => addCallback(task)) : task => task.addToUnchecked(pack)));
   }
 }
 
@@ -42,6 +49,14 @@ export class Task {
     return this;
   }
 
+  public getReferences() {
+    return Array.from(this.references);
+  }
+
+  public referenceCount() {
+    return this.references.length;
+  }
+
   public newReference() {
     const references = this.references;
     const reference = new TaskReference(this, references.length);
@@ -49,15 +64,14 @@ export class Task {
     return reference;
   }
 
-  public addTo(pack: Pack) {
+  public async addTo(pack: Pack) {
     if (pack.type !== PackType.DATA_PACK) throw new TypeError("Adding task to pack of wrong type");
-    this.addToUnchecked(pack);
+    await this.addToUnchecked(pack);
   }
 
-  public addToUnchecked(pack: Pack) {
+  public async addToUnchecked(pack: Pack) {
     pack.addResource(this.toMinecraftFunction());
-    for (const reference of this.references)
-      reference.addToUnchecked(pack);
+    await Promise.all(this.references.map(reference => reference.addToUnchecked(pack)));
   }
 
   public toMinecraftFunction() {
@@ -72,12 +86,12 @@ export class TaskReference {
     this.functionId = new ResourceLocation("taskfunction", `refs/${task.group.name}/${task.id}/${id}`);
   }
 
-  public addTo(pack: Pack) {
+  public async addTo(pack: Pack) {
     if (pack.type !== PackType.DATA_PACK) throw new TypeError("Adding task reference to pack of wrong type");
-    this.addToUnchecked(pack);
+    await this.addToUnchecked(pack);
   }
 
-  public addToUnchecked(pack: Pack) {
+  public async addToUnchecked(pack: Pack) {
     pack.addResource(new MinecraftFunction(this.functionId, [`function ${this.task.functionId}`]));
   }
 }
