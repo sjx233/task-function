@@ -1,5 +1,6 @@
 import { MinecraftFunction, Pack, PackType } from "minecraft-packs";
 import ResourceLocation from "resource-location";
+import { asyncMap } from "./utils";
 
 export class TaskGroup {
   private readonly tasks: Task[] = [];
@@ -29,7 +30,7 @@ export class TaskGroup {
   }
 
   public async addToUnchecked(pack: Pack, addCallback?: (task: Task) => void) {
-    await Promise.all(this.tasks.map(addCallback ? task => task.addToUnchecked(pack).then(() => addCallback(task)) : task => task.addToUnchecked(pack)));
+    await Promise.all(await asyncMap(this.tasks, addCallback ? task => task.addToUnchecked(pack).then(() => addCallback(task)) : task => task.addToUnchecked(pack)));
   }
 }
 
@@ -71,7 +72,7 @@ export class Task {
 
   public async addToUnchecked(pack: Pack) {
     pack.addResource(this.toMinecraftFunction());
-    await Promise.all(this.references.map(reference => reference.addToUnchecked(pack)));
+    await Promise.all(await asyncMap(this.references, reference => reference.addToUnchecked(pack)));
   }
 
   public toMinecraftFunction() {
