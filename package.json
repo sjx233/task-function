@@ -1,6 +1,6 @@
 {
   "name": "task-function",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Schedule reusable tasks in functions.",
   "keywords": [
     "minecraft",
@@ -28,7 +28,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "minecraft-packs": "file:../minecraft-packs",
+    "minecraft-packs": "^1.0.0",
     "resource-location": "^2.2.1",
     "tslib": "^1.9.3"
   },
