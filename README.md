@@ -1,3 +1,3 @@
-# minecraft-packs
+# task-function
 
-Creates Minecraft resourcepacks and datapacks.
+Schedule reusable tasks in functions.
