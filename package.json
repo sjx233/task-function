@@ -28,7 +28,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "minecraft-packs": "^1.0.0",
+    "minecraft-packs": "^1.0.2",
     "resource-location": "^2.2.1",
     "tslib": "^1.9.3"
   },
@@ -38,6 +38,6 @@
     "typescript": "^3.2.4"
   },
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">=10.0.0"
   }
 }
