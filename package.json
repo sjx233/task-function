@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "minecraft-packs": "^1.0.2",
-    "resource-location": "^2.2.1",
+    "resource-location": "^3.0.0",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
