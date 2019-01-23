@@ -10,6 +10,7 @@ const task1 = taskGroup.newTask()
 const task2 = taskGroup.newTask()
   .then("tellraw @a \"Task 2 Test 1\"")
   .then(task1, 4)
+  .then(task1, 6)
   .then("tellraw @a \"Task 2 Test 2\"")
   .then("tellraw @a \"Task 2 Test 3\"")
   .then(task1);

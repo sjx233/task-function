@@ -60,7 +60,8 @@ export class Task {
 
   public newReference() {
     const references = this.references;
-    const reference = new TaskReference(this, references.length);
+    const length = references.length;
+    const reference = length ? new IndirectReference(this, references.length) : new DirectReference(this);
     references.push(reference);
     return reference;
   }
@@ -80,7 +81,27 @@ export class Task {
   }
 }
 
-export class TaskReference {
+export interface TaskReference {
+  readonly functionId: ResourceLocation;
+
+  addTo(pack: Pack): Promise<void>;
+
+  addToUnchecked(pack: Pack): Promise<void>;
+}
+
+export class DirectReference implements TaskReference {
+  public get functionId() {
+    return this.task.functionId;
+  }
+
+  public constructor(public readonly task: Task) { }
+
+  public async addTo() { }
+
+  public async addToUnchecked() { }
+}
+
+export class IndirectReference implements TaskReference {
   public readonly functionId: ResourceLocation;
 
   public constructor(public readonly task: Task, public readonly id: number) {
