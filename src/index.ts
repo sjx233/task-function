@@ -43,9 +43,9 @@ export class Task {
     this.functionId = new ResourceLocation("taskfunction", `tasks/${group.name}/${id}`);
   }
 
-  public then(task: Task, time?: number): this;
-  public then(command: string): this;
-  public then(arg1: Task | string, arg2?: number) {
+  public thenRun(task: Task, time?: number): this;
+  public thenRun(command: string): this;
+  public thenRun(arg1: Task | string, arg2?: number) {
     this.commands.push(arg1 instanceof Task ? arg2 && (arg2 = Math.round(arg2)) > 0 ? `schedule function ${arg1.newReference().functionId} ${arg2}` : `function ${arg1.functionId}` : arg1);
     return this;
   }
