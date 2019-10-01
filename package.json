@@ -30,12 +30,14 @@
   "dependencies": {
     "minecraft-packs": "^1.0.2",
     "resource-location": "^3.0.0",
-    "tslib": "^1.9.3"
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18",
-    "tslint": "^5.12.1",
-    "typescript": "^3.2.4"
+    "@types/node": "^12.7.8",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "eslint": "^6.5.1",
+    "typescript": "^3.6.3"
   },
   "engines": {
     "node": ">=10.0.0"
