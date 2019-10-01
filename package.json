@@ -20,9 +20,8 @@
   },
   "repository": "github:sjx233/task-function",
   "scripts": {
-    "lint": "tslint --project .",
-    "lint-fix": "tslint --project . --fix",
-    "build": "rm -rf lib && tsc",
+    "lint": "eslint --ext .js,.ts src",
+    "build": "tsc",
     "test": "node lib/test/test.js",
     "preversion": "npm run build && npm test",
     "postversion": "git push && git push --tags"
